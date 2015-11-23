@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html ng-app="docsurveyApp">
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>Physician Survey Administration</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="css/dashboard.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="js/jquery-1.11.1.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="js/angular.js"></script>
+	<script src="js/docsurvey.js"></script>
+</head>
+<body ng-controller="surveyController as survey" ng-init="getInstitutions()">
+<header>
+	<nav class="navbar navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="admin.html">Physician Survey Console - Beta</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#">Admin Console</a></li>
+					<li><a href="index.html">Logout</a></li>
+					<li><a href="#">Help</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+</header>
+<!-- BEGIN site content -->
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-3 sidebar">
+			<ul class="nav nav-sidebar">
+				<li class="active"><a href="#overview">Overview</a></li>
+				<li><a href="#institutions">Institution Listing</a></li>
+				<li><a href="#surveydata">Survey Data</a></li>
+			</ul>
+		</div>
+		<div class="col-sm-9 col-sm-offset-3">
+			<h2><a name="overview">Overview</a></h2>
+			<p>
+				This is the administration console and API documentation for the Physician Survey data
+			</p>
+			<button class="btn btn-default">Download Data</button>
+			<h2><a name="institutions">Institutions</a></h2>
+			<code>/institutions</code>
+			<p>Click <a href="http://www.docsatisfaction.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT/institutions">here</a> to test institution service</p>
+
+			<div class="container">
+				<div class="row">
+
+					<h1><a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal">Add New Institution</a></h1>
+
+				</div>
+			</div>
+
+			<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h3 id="myModalLabel">Add A New Institution Here</h3>
+						</div>
+						<div class="modal-body">
+							<form class="form-horizontal col-sm-12" method="post">
+								<div class="form-group"><label>Institution Name</label><input id="organizationName" class="form-control required" placeholder="Institution Name" data-placement="top" data-trigger="manual" data-content="Must be at least 3 characters long, and must only contain letters." type="text"></div>
+								<div class="form-group"><label>Institution Key Code</label><input id="organizationKey" class="form-control required" placeholder="Enter a key here" data-placement="top" data-trigger="manual" type="text"></div>
+								<div class="form-group"><label>Demo?</label>
+									<select class="form-control" id="demo">
+										<option>Demo</option>
+										<option>Live</option>
+									</select></div>
+								<div class="form-group"><button type="submit" class="btn btn-success pull-right">Add Institution</button> <p class="help-block pull-left text-danger hide" id="form-error">&nbsp; The form is not valid. </p></div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<form>
+				<select class="form-control">
+					<option ng-repeat="inst in institutions" value="">
+						{{inst.organizationName}}
+					</option>
+				</select>
+
+				<label class="label label-default">Demo?</label> <input class="form-control" type="checkbox" aria-label="Test">
+			</form>
+			<table class="table">
+				<thead>
+				<th>Institution Key</th>
+				<th>Institution Name</th>
+				<th>Demo</th>
+				</thead>
+				<tr ng-repeat="inst in institutions">
+					<td>{{inst.organizationKey}}</td>
+					<td>{{inst.organizationName}}</td>
+					<td>{{inst.demo}}</td>
+				</tr>
+			</table>
+
+			<h2><a name="surveydata">Survey Data</a></h2>
+			<code>/surveydata</code>
+			<p>Click <a href="http://www.docsatisfaction.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT/surveydata">here</a> to test survey service</p>
+			<button ng-click="getSurveyData()" class="btn btn-default" type="button">Show Survey Data</button>
+			<button ng-click="getInstitutions()" class="btn btn-primary" type="button" value="Show">Get Institutions</button>
+			<table class="table">
+				<thead>
+					<th>ID</th>
+					<th>Rating</th>
+					<th>Why Feeling</th>
+					<th>Q2</th>
+					<th>Q3</th>
+					<th>Q4</th>
+					<th>Comment</th>
+				</thead>
+				<tr ng-repeat="sd in surveyData">
+					<td>{{sd.id}}</td>
+					<td>{{sd.rating}}</td>
+					<td>{{sd.whyFeeling}}</td>
+					<td>{{sd.workDissatisfaction}}</td>
+					<td>{{sd.answerMatrix}}</td>
+					<td>{{sd.questionAnswer}}</td>
+					<td>{{sd.comment}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+<!-- END site content -->
+</body>
+</html>
