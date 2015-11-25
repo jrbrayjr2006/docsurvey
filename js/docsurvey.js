@@ -38,7 +38,8 @@ app.service('surveyService', function($http, $q, $log) {
             workDissatisfaction: "",
             answerMatrix: "",
             questionAnswer: "",
-            comment: ""
+            comment: "",
+            key: ""
         };
     };
 
@@ -50,7 +51,8 @@ app.service('surveyService', function($http, $q, $log) {
             workDissatisfaction: "",
             answerMatrix: "",
             questionAnswer: "",
-            comment: ""
+            comment: "",
+            key: ""
         }];
     };
 
@@ -61,11 +63,11 @@ app.service('surveyService', function($http, $q, $log) {
         var deferred = $q.defer();
         $http({
             method: 'GET',
-            url: 'http://www.docsatisfaction.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT/institutions',
+            url: 'http://www.jaydot2.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT/institutions',
             headers: {'Content-Type': 'application/json'}
         }).
             success(function (response) {
-                console.debug('http://www.docsatisfaction.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT/institutions');
+                console.debug('http://www.jaydot2.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT/institutions');
                 deferred.resolve({data: response.data});
                 data = response.data;
                 console.debug(data);  //FOR DEBUG PURPOSES ONLY
@@ -86,11 +88,11 @@ app.service('surveyService', function($http, $q, $log) {
         var deferred = $q.defer();
         $http({
             method: 'GET',
-            url: 'http://www.docsatisfaction.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT/surveydata',
+            url: 'http://www.jaydot2.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT/surveydata',
             headers: {'Content-Type': 'application/json'}
         }).
             success(function(response) {
-                console.debug('http://www.docsatisfaction.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT/surveydata');
+                console.debug('http://www.jaydot2.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT/surveydata');
                 deferred.resolve({data: response.data});
                 data = response.data;
                 console.debug(data);  //FOR DEBUG PURPOSES ONLY

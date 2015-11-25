@@ -120,10 +120,11 @@
 					<th>ID</th>
 					<th>Rating</th>
 					<th>Why Feeling</th>
-					<th>Q2</th>
+					<th>Reason</th>
 					<th>Q3</th>
 					<th>Q4</th>
 					<th>Comment</th>
+					<th>Key</th>
 				</thead>
 				<tr ng-repeat="sd in surveyData">
 					<td>{{sd.id}}</td>
@@ -133,6 +134,7 @@
 					<td>{{sd.answerMatrix}}</td>
 					<td>{{sd.questionAnswer}}</td>
 					<td>{{sd.comment}}</td>
+					<td>{{sd.key}}</td>
 				</tr>
 			</table>
 		</div>
