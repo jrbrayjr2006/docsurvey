@@ -70,15 +70,18 @@
 							<h3 id="myModalLabel">Add A New Institution Here</h3>
 						</div>
 						<div class="modal-body">
-							<form class="form-horizontal col-sm-12" method="post">
-								<div class="form-group"><label>Institution Name</label><input id="organizationName" class="form-control required" placeholder="Institution Name" data-placement="top" data-trigger="manual" data-content="Must be at least 3 characters long, and must only contain letters." type="text"></div>
-								<div class="form-group"><label>Institution Key Code</label><input id="organizationKey" class="form-control required" placeholder="Enter a key here" data-placement="top" data-trigger="manual" type="text"></div>
+							<form class="form-horizontal col-sm-12" ng-submit="addInstitution()">
+								<div class="form-group"><label>Institution Name</label><input id="organization_name" name="organization_name" class="form-control required" placeholder="Institution Name" ng-model="addInstitutionFormData.organization_name" data-placement="top" data-trigger="manual" data-content="Must be at least 3 characters long, and must only contain letters." type="text"></div>
+								<div class="form-group"><label>Institution Key Code</label><input id="organization_key" name="organization_key" class="form-control required" placeholder="Enter a key here" ng-model="addInstitutionFormData.organization_key" data-placement="top" data-trigger="manual" type="text"></div>
 								<div class="form-group"><label>Demo?</label>
-									<select class="form-control" id="demo">
-										<option>Demo</option>
-										<option>Live</option>
+									<select class="form-control" id="demo" name="demo" ng-model="addInstitutionFormData.demo">
+										<option>DEMO</option>
+										<option>LIVE</option>
 									</select></div>
-								<div class="form-group"><button type="submit" class="btn btn-success pull-right">Add Institution</button> <p class="help-block pull-left text-danger hide" id="form-error">&nbsp; The form is not valid. </p></div>
+								<div class="form-group">
+									<button type="submit" class="btn btn-success pull-right">Add Institution</button>
+									<p class="help-block pull-left text-danger hide" id="form-error">&nbsp; The form is not valid. </p>
+								</div>
 							</form>
 						</div>
 						<div class="modal-footer">
