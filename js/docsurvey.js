@@ -6,6 +6,8 @@ console.debug("Entering application...");
 
 var app = angular.module('docsurveyApp', []);
 var baseUrl = 'http://www.jaydot2.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT';
+//var baseUrl = 'http://www.docsatisfaction.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT';
+//var baseUrl = 'http://localhost:8080/spring';
 
 app.service('surveyService', function($http, $q, $log) {
     console.debug("Entering surveyService...");
@@ -66,13 +68,15 @@ app.service('surveyService', function($http, $q, $log) {
     this.getInstitutions = function() {
         console.debug("Entering surveyService.getInstitutions...");
         var deferred = $q.defer();
+        var serviceUrl = baseUrl + '/institutions';
+        console.debug('The URL is ' + serviceUrl);
         $http({
             method: 'GET',
-            url: 'http://www.jaydot2.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT/institutions',
+            url: serviceUrl,
             headers: {'Content-Type': 'application/json'}
         }).
             success(function (response) {
-                console.debug('http://www.jaydot2.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT/institutions');
+                console.debug(serviceUrl);
                 deferred.resolve({data: response.data});
                 data = response.data;
                 console.debug(data);  //FOR DEBUG PURPOSES ONLY
@@ -88,16 +92,22 @@ app.service('surveyService', function($http, $q, $log) {
         return deferred.promise;
     };
 
+    /**
+     *
+     * @returns {promise.promise|jQuery.promise|d.promise|promise|jQuery.ready.promise|qFactory.Deferred.promise|*}
+     */
     this.getSurveyData = function() {
         console.debug("Entering surveyService.getSurveyData...");
         var deferred = $q.defer();
+        var serviceUrl = baseUrl + '/surveydata';
+        console.debug('The URL is ' + serviceUrl);
         $http({
             method: 'GET',
-            url: 'http://www.jaydot2.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT/surveydata',
+            url: serviceUrl,
             headers: {'Content-Type': 'application/json'}
         }).
             success(function(response) {
-                console.debug('http://www.jaydot2.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT/surveydata');
+                console.debug(serviceUrl);
                 deferred.resolve({data: response.data});
                 data = response.data;
                 console.debug(data);  //FOR DEBUG PURPOSES ONLY
@@ -114,9 +124,7 @@ app.service('surveyService', function($http, $q, $log) {
 
     /**
      *
-     * @param demo
-     * @param organizationKey
-     * @param organizationName
+     * @param formData
      */
     this.addInstitution = function(formData) {
         console.debug("Entering surveyService.addInstitution...");
@@ -130,13 +138,15 @@ app.service('surveyService', function($http, $q, $log) {
             data: $.param(formData)
         }).
             success(function(response){
-                //TODO
+                deferred.resolve({data: response});
                 console.debug(response);
                 console.info("New institution added");
             }).
             error(function() {
-                //TODO
                 console.error("Error occurred while attempting to add a new institution");
+                $log.error('Error occurred while attempting to add a new institution');
+                data = "{'message' : 'error'}";
+                deferred.reject(data);
             });
         console.debug("Exiting surveyService.addInstitution...");
     };
@@ -150,6 +160,9 @@ app.controller('surveyController', function($log, $scope, surveyService) {
     $scope.surveyData = surveyService.initializeSurveys();
     $scope.addInstitutionFormData = {};
 
+    /**
+     *
+     */
     $scope.getInstitutions = function() {
         //this.institutions = surveyService.getInstitutions();
         var promise = surveyService.getInstitutions();
@@ -160,6 +173,9 @@ app.controller('surveyController', function($log, $scope, surveyService) {
         console.debug('The institutions are ' + $scope.institutions[0].demo);
     };
 
+    /**
+     *
+     */
     $scope.getSurveyData = function() {
         var surveyPromise = surveyService.getSurveyData();
         surveyPromise.then(function(promise) {
@@ -168,6 +184,9 @@ app.controller('surveyController', function($log, $scope, surveyService) {
         console.debug($scope.surveyData);
     };
 
+    /**
+     *
+     */
     $scope.addInstitution = function() {
         console.debug("Try to add an institution");
         console.debug($scope.addInstitutionFormData);
