@@ -42,6 +42,7 @@
 				<li class="active"><a href="#overview">Overview</a></li>
 				<li><a href="#institutions">Institution Listing</a></li>
 				<li><a href="#surveydata">Survey Data</a></li>
+				<li><a href="#exportdata">Export Data</a></li>
 			</ul>
 		</div>
 		<div class="col-sm-9 col-sm-offset-3">
@@ -53,7 +54,7 @@
 			<h2><a name="institutions">Institutions</a></h2>
 			<code>/institutions</code>
 			<p>Click <a href="http://www.docsatisfaction.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT/institutions">here</a> to test institution service</p>
-
+			<button ng-click="getInstitutions()" class="btn btn-primary" type="button" value="Show">Get Institutions</button>
 			<div class="container">
 				<div class="row">
 
@@ -97,8 +98,6 @@
 						{{inst.organizationName}}
 					</option>
 				</select>
-
-				<label class="label label-default">Demo?</label> <input class="form-control" type="checkbox" aria-label="Test">
 			</form>
 			<table class="table">
 				<thead>
@@ -117,7 +116,7 @@
 			<code>/surveydata</code>
 			<p>Click <a href="http://www.docsatisfaction.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT/surveydata">here</a> to test survey service</p>
 			<button ng-click="getSurveyData()" class="btn btn-default" type="button">Show Survey Data</button>
-			<button ng-click="getInstitutions()" class="btn btn-primary" type="button" value="Show">Get Institutions</button>
+			<!--<button ng-click="getInstitutions()" class="btn btn-primary" type="button" value="Show">Get Institutions</button> -->
 			<table class="table">
 				<thead>
 					<th>ID</th>
@@ -140,6 +139,12 @@
 					<td>{{sd.key}}</td>
 				</tr>
 			</table>
+			<h2><a name="exportdata">Export Data</a></h2>
+			<div class="container">
+				<form>
+					<button class="btn btn-primary" type="button" value="Show">Export To Excel</button>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>
