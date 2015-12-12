@@ -5,7 +5,8 @@ console.debug("Entering application...");
 
 
 var app = angular.module('docsurveyApp', []);
-var baseUrl = 'http://www.jaydot2.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT';
+//var baseUrl = 'http://www.jaydot2.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT';
+var baseUrl = 'http://www.strawberry23.net:8080/spring-survey-1.0.0-BUILD-SNAPSHOT';
 //var baseUrl = 'http://www.docsatisfaction.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT';
 //var baseUrl = 'http://localhost:8080/spring';
 
