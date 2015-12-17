@@ -167,9 +167,9 @@ app.service('surveyService', function($http, $q, $log) {
         }).
             success(function(response) {
                 console.debug(serviceUrl);
-                deferred.resolve({data: response});
-                data = response;
-                //console.debug(data);  //FOR DEBUG PURPOSES ONLY
+                deferred.resolve({data: response.data});
+                data = response.data;
+                console.debug(data);  //FOR DEBUG PURPOSES ONLY
             }).
             error(function(){
                 console.error("Service call failure...");
