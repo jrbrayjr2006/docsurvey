@@ -6,8 +6,8 @@ console.debug("Entering application...");
 
 var app = angular.module('docsurveyApp', []);
 //var baseUrl = 'http://www.jaydot2.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT';
-//var baseUrl = 'http://www.strawberry23.net:8080/spring-survey-1.0.0-BUILD-SNAPSHOT';
-var baseUrl = 'http://www.docsatisfaction.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT';
+var baseUrl = 'http://www.strawberry23.net:8080/spring-survey-1.0.0-BUILD-SNAPSHOT';
+//var baseUrl = 'http://www.docsatisfaction.com:8080/spring-survey-1.0.0-BUILD-SNAPSHOT';
 //var baseUrl = 'http://localhost:8080/spring';
 
 app.service('surveyService', function($http, $q, $log) {
@@ -151,6 +151,34 @@ app.service('surveyService', function($http, $q, $log) {
             });
         console.debug("Exiting surveyService.addInstitution...");
     };
+
+    /**
+     *
+     */
+    this.exportToExcel = function() {
+        console.debug("Entering surveyService.exportToExcel...");
+        var deferred = $q.defer();
+        var serviceUrl = baseUrl + '/exporttoexcel';
+        console.debug('The URL is ' + serviceUrl);
+        $http({
+            method: 'GET',
+            url: serviceUrl,
+            headers: {'Content-Type': 'application/json'}
+        }).
+            success(function(response) {
+                console.debug(serviceUrl);
+                deferred.resolve({data: response});
+                data = response;
+                //console.debug(data);  //FOR DEBUG PURPOSES ONLY
+            }).
+            error(function(){
+                console.error("Service call failure...");
+                $log.error('Service export data to Excel when calling exportToExcel function...');
+                data = "{'message' : 'error'}";
+                deferred.reject(data);
+            });
+        console.debug("Exiting surveyService.exportToExcel...");
+    };
 });
 
 app.controller('surveyController', function($log, $scope, surveyService) {
@@ -192,6 +220,12 @@ app.controller('surveyController', function($log, $scope, surveyService) {
         console.debug("Try to add an institution");
         console.debug($scope.addInstitutionFormData);
         surveyService.addInstitution($scope.addInstitutionFormData);
+    };
+
+    $scope.exportToExcel = function() {
+        console.debug("Try to export the survey data to an Excel spreadsheet...");
+        surveyService.exportToExcel();
+        console.debug("Export complete!");
     };
 
 });
