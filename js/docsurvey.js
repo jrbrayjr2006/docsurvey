@@ -42,7 +42,7 @@ app.service('surveyService', function($http, $q, $log) {
             whyFeeling: "",
             workDissatisfaction: "",
             answerMatrix: "",
-            questionAnswer: "",
+            createDate: "",
             comment: "",
             key: ""
         };
@@ -55,7 +55,7 @@ app.service('surveyService', function($http, $q, $log) {
             whyFeeling: "",
             workDissatisfaction: "",
             answerMatrix: "",
-            questionAnswer: "",
+            createDate: "",
             comment: "",
             key: ""
         }];
